@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'django.contrib.postgres',
+    'municipios',
+    'rest_framework',
+    'rest_framework_gis',
+    'api_ejemplo'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +81,13 @@ WSGI_APPLICATION = 'geoDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME':'riocas5',
+        'USER' : 'postgres',
+        'PASSWORD' :'clave2020',
+        'PORT' : '5432',
+        'HOST':'riosig.stgeo.co',
+        'OPTIONS' : {'options' : '-c search_path=django,public'}
     }
 }
 
