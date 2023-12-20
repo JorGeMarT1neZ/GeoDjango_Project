@@ -82,10 +82,6 @@ WSGI_APPLICATION = 'geoDjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME':'riocas5',
-        'USER' : 'postgres',
-        'PASSWORD' :'clave2020',
-        'PORT' : '5432',
         'HOST':'riosig.stgeo.co',
         'OPTIONS' : {'options' : '-c search_path=django,public'}
     }
