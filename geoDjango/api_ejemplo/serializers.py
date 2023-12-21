@@ -6,10 +6,17 @@ from rest_framework.serializers import SerializerMethodField
 
                                    #geojson#
 class minicipios_serializer(GeoFeatureModelSerializer):
+    area = SerializerMethodField('get_area') # campo extra para retornar la informacion 
+    def get_area(sel,object):
+        try:
+            return "%.2f mts_c" % object.areamun
+        except:
+            return "sin datos"
     class Meta:
         model = MunicipiosColombia
         geo_field = "geom"
-        fields = ('__all__')
+        fields = ('mpio_cnmbr','descrpcion','depto','area')
+        
 
                                   #alfanumerico#
 class minicipios_serializer_2(serializers.ModelSerializer):
@@ -21,4 +28,4 @@ class minicipios_serializer_2(serializers.ModelSerializer):
             return None
     class Meta:
         model = MunicipiosColombia
-        fields = ('mpio_cnmbr','descrpcion','depto','geom','area')
+        fields = ('mpio_cnmbr','descrpcion','depto','area')

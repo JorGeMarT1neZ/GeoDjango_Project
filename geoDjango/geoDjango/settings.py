@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,8 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+with open(os.path.join(BASE_DIR,'secrets.json'))  as filepass:
+    secrets = json.loads(filepass.read()) # abriendo el archivo secrets y guardando el contenido en la variable secrets
+
+def getsecret(secretname,secrets = secrets):
+    try :
+        return secrets[secretname]
+    except :
+        msg = f"la variable {secretname} no esta definida"
+        raise ImproperlyConfigured(msg)
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tm3=i9_ejed)mei#@r^cz!&^k5$kwf*tug84k=cqn^qf2e(8e^'
+SECRET_KEY = getsecret('SECRETKEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,12 +98,12 @@ WSGI_APPLICATION = 'geoDjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME':'riocas5',
-        'USER' : 'postgres',
-        'PASSWORD' :'clave2020',
-        'PORT' : '5432',
-        'HOST':'riosig.stgeo.co',
-        'OPTIONS' : {'options' : '-c search_path=django,public'}
+        'NAME':getsecret('DBNAME'),
+        'USER' : getsecret('DBUSER'),
+        'PASSWORD' :getsecret('DBPASSWORD'),
+        'PORT' : getsecret('DBPORT'),
+        'HOST':getsecret('DBHOST'),
+        'OPTIONS' : {'options' : getsecret('DBOPTIONS')}
     }
 }
 
