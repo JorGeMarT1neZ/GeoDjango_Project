@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
+from datetime import timedelta #
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,7 +59,9 @@ INSTALLED_APPS = [
     'municipios',
     'rest_framework',
     'rest_framework_gis',
-    'api_ejemplo'
+    'api_ejemplo',
+    'rest_framework_simplejwt',
+    'personas',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +151,25 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {   
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),    
+}
+
+#####JWT Token - SimpleJWT
+REST_USE_JWT = True
+
+
+SIMPLE_JWT = {
+
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    
+    'AUTH_HEADER_TYPES': ('JWT','Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+}

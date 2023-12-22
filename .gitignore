@@ -66,6 +66,7 @@ __pycache__
 db.sqlite3
 media
 django_geo/
+geoDjango/secrets.json
 
 # Flask stuff:
 instance/
