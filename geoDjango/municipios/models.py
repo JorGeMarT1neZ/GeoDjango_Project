@@ -32,6 +32,9 @@ class MunicipiosColombia(models.Model):
         managed = False
         db_table = 'municipios_colombia'
 
+    def __str__(self):
+        return f"{self.mpio_cnmbr}"
+
 
 class SubregionesColombia(models.Model):
     geom = models.MultiPolygonField(srid=4326, blank=True, null=True)
@@ -48,4 +51,4 @@ class SubregionesColombia(models.Model):
 
 
     def __str__(self):
-        return f"{self.depto}-{self.mpio}"
+        return f"{self.nom_subreg}"

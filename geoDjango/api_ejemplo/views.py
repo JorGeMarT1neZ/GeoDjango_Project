@@ -31,7 +31,7 @@ class consultaNombreMunicipios(ListAPIView):
     
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated]) # preteccion para la api , protegiendo como funcion 
+@permission_classes([IsAuthenticated]) # proteccion para la api , protegiendo como funcion 
 def consultAreamayor(requets):
     municipios= MunicipiosColombia.objects.annotate(areamun=Cast(Area(Cast('geom', GeometryField(geography=True))),FloatField())).filter(areamun__gte=1000000).order_by("-areamun")[:10]
     respuesta = minicipios_serializer(municipios,many=True).data #pasandole al formato JSON #
