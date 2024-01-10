@@ -4,12 +4,14 @@ from django.contrib.gis.db import models
 
 
 class MunicipiosColombia(models.Model):
+    #id = models.AutoField(primary_key=True,unique=True)
+    id = models.IntegerField(primary_key=True,unique=True)
     geom = models.MultiPolygonField(srid=4326,blank=True, null=True)
     objectid_1 = models.IntegerField(blank=True, null=True)
     dpto_ccdgo = models.CharField(max_length=2, blank=True, null=True)
     mpio_ccdgo = models.CharField(max_length=3, blank=True, null=True)
     shape_leng = models.FloatField(blank=True, null=True)
-    objectid = models.IntegerField(primary_key=True)
+    objectid = models.IntegerField()
     mpio_cnmbr = models.CharField(max_length=28, blank=True, null=True)
     descrpcion = models.CharField(max_length=12, blank=True, null=True)
     depto = models.CharField(max_length=39, blank=True, null=True)

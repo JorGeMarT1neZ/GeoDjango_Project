@@ -2,6 +2,7 @@ from municipios.models import MunicipiosColombia
 from rest_framework import serializers
 from rest_framework_gis.serializers import  GeoFeatureModelSerializer
 from rest_framework.serializers import SerializerMethodField
+from personas.models import Personas
 
 
                                    #geojson#
@@ -29,3 +30,14 @@ class minicipios_serializer_2(serializers.ModelSerializer):
     class Meta:
         model = MunicipiosColombia
         fields = ('mpio_cnmbr','descrpcion','depto','area')
+
+"""serializadores planos y de model serialazer   """
+"""serializador planos o genericos """
+
+class personas_serialaizer(serializers.ModelSerializer):
+
+    municipio_residencia = minicipios_serializer_2(many=False)
+
+    class Meta:
+        model = Personas
+        fields = ('__all__')

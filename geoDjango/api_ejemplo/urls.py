@@ -19,5 +19,8 @@ urlpatterns = [
     # al /token/verify/ para verificar si es válido o no. Esta ruta es útil para validar tokens 
     # antes de realizar acciones sensibles o para comprobar si un token sigue siendo válido.
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('ejecutar_script/',ejecutar_script),
+    path('upscript/',actualizar_script),
+    path('letterm/',letter_m),
 ]
 

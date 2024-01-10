@@ -13,8 +13,12 @@ class Personas(models.Model):
     apellido = models.CharField(max_length = 20,blank=False,null=False)
     sexo = models.CharField(max_length = 8,blank=False,null=False,choices=sexo_options)
     fecha_nacimiento = models.DateField(blank=False)
-    fecha_creacion = models.DateTimeField(auto_now_add=True) #default= timezome.now()-timedelta(hours=5)
-    #mun_residencia = models.ForeignKey(MunicipiosColombia,on_delete=models.SET_NULL,related_name= "personas",null=True)
+    fecha_creacion = models.DateTimeField( """default= timezome.now()-timedelta(hours=5"""  )
+    municipio_residencia = models.ForeignKey(MunicipiosColombia,on_delete=models.SET_NULL,null=True,related_name='personas_municipio')
+    """Personas.objects.filter(nombre__startswith='p').update"""
     class Meta:
         db_table = "registro_personas"
+
+    def __str__(self):
+        return f"{self.nombre}"    
 

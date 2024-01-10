@@ -15,12 +15,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MunicipiosColombia',
             fields=[
+                ('id',models.IntegerField(primary_key=True,unique=True)),
                 ('geom', django.contrib.gis.db.models.fields.MultiPolygonField(blank=True, null=True, srid=4326)),
                 ('objectid_1', models.IntegerField(blank=True, null=True)),
                 ('dpto_ccdgo', models.CharField(blank=True, max_length=2, null=True)),
                 ('mpio_ccdgo', models.CharField(blank=True, max_length=3, null=True)),
                 ('shape_leng', models.FloatField(blank=True, null=True)),
-                ('objectid', models.IntegerField(primary_key=True, serialize=False)),
+                ('objectid', models.IntegerField()),
                 ('mpio_cnmbr', models.CharField(blank=True, max_length=28, null=True)),
                 ('descrpcion', models.CharField(blank=True, max_length=12, null=True)),
                 ('depto', models.CharField(blank=True, max_length=39, null=True)),
