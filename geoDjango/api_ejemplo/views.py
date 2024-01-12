@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from django.db.models.functions import Cast
 from django.contrib.gis.db.models import GeometryField , FloatField
 from rest_framework.permissions import IsAuthenticated ,AllowAny
-from personas.models import Personas
+from personas.models import Personas, Animal
 import random
 import names
 from django.db import connection
@@ -45,39 +45,20 @@ def consultAreamayor(requets):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def ejecutar_script(requets):
-    lista_personas=[
-        {"nombre":"Carlos",
-         "apellido":"Diaz",
-         "fecha_nacimiento":"1996-06-15",
-         "sexo":"M",
-         "municipio_residencia":"1112"}
-    ]
+
+    especies=['P','G','C','I']
+    lista_personas = list(Personas.objects.all())
     try:
-        lista_municipios = list(MunicipiosColombia.objects.all())
-        lista_personas = []
-        def buscar_municipios(id_municipio):
-            for municipio in lista_municipios:
-                if municipio.id == id_municipio :
-                    return municipio
-            return None
-
-        for i in range(10000):
-            listnum = random.randint(1,1118)
-            mi_persona = Personas(
-                nombre= f'pepito {i+1}',
-                apellido= f'Perez {i+1}',
-                sexo= 'M',
-                fecha_nacimiento= "1996-06-15",
-                municipio_residencia = buscar_municipios(listnum),
-            )
-
-            lista_personas.append(mi_persona)
-
-        #bulk create -  carga masiva 
-        Personas.objects.bulk_create(lista_personas,batch_size=1000)
+        lista_animales=[]
+        for i in range(20000):
+            mi_mascota = Animal(especie=especies[random.randrange(0,len(especies)-1)],
+                                nombre=names.get_full_name(),
+                                propietario=lista_personas[random.randrange(0,len(lista_personas)-1)])
+            lista_animales.append(mi_mascota)
+            print(mi_mascota)
         return Response({"mensaje_ejecuto":False})       
-
     except Exception as e:
+        print(e)
         return Response({"mensaje_ejecuto":False,"excepcion":str(e)})
     
 
